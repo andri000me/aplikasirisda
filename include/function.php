@@ -243,24 +243,24 @@ function carinasabahlunas($search)
 
 function carinasabahmenunggak($search)
 {
-	$query = "SELECT * FROM nasabahlunas WHERE nama LIKE '%$search%' OR nohp LIKE '%$search%' OR alamat LIKE '%$search%' OR norekening LIKE '%$search%' OR pinjaman LIKE '%$search%' OR jangkawaktu LIKE '%$search%' OR status LIKE '%$search%'";
+	$query = "SELECT * FROM nasabahmenunggak WHERE nama LIKE '%$search%' OR nohp LIKE '%$search%' OR alamat LIKE '%$search%' OR norekening LIKE '%$search%' OR pinjaman LIKE '%$search%' OR tgljatuhtempo LIKE '%$search%' OR jumlahmenunggak LIKE '%$search%'";
 	return query($query);
 }
 
 function caripeminjamperbulan($search)
 {
-	$query = "SELECT * FROM nasabahlunas WHERE nama LIKE '%$search%' OR nohp LIKE '%$search%' OR alamat LIKE '%$search%' OR norekening LIKE '%$search%' OR pinjaman LIKE '%$search%' OR jangkawaktu LIKE '%$search%' OR status LIKE '%$search%'";
+	$query = "SELECT * FROM peminjamperbulan WHERE nama LIKE '%$search%' OR nohp LIKE '%$search%' OR alamat LIKE '%$search%' OR norekening LIKE '%$search%' OR angsuran LIKE '%$search%' OR pinjaman LIKE '%$search%' OR tglpencairan LIKE '%$search%' OR jangkawaktu LIKE '%$search%'";
 	return query($query);
 }
 
 function caritandaterimaagunan($search)
 {
-	$query = "SELECT * FROM nasabahlunas WHERE nama LIKE '%$search%' OR nohp LIKE '%$search%' OR alamat LIKE '%$search%' OR norekening LIKE '%$search%' OR pinjaman LIKE '%$search%' OR jangkawaktu LIKE '%$search%' OR status LIKE '%$search%'";
+	$query = "SELECT * FROM tandaterimaagunan WHERE nama LIKE '%$search%' OR nohp LIKE '%$search%' OR alamat LIKE '%$search%' OR keterangansurat LIKE '%$search%'";
 	return query($query);
 }
 
 function caristruk($search)
 {
-	$query = "SELECT * FROM nasabahlunas WHERE nama LIKE '%$search%' OR nohp LIKE '%$search%' OR alamat LIKE '%$search%' OR norekening LIKE '%$search%' OR pinjaman LIKE '%$search%' OR jangkawaktu LIKE '%$search%' OR status LIKE '%$search%'";
+	$query = "SELECT * FROM struk WHERE nama LIKE '%$search%' OR alamat LIKE '%$search%' OR norekening LIKE '%$search%' OR pinjaman LIKE '%$search%' OR jangkawaktu LIKE '%$search%' OR tgljatuhtempo LIKE '%$search%'";
 	return query($query);
 }
