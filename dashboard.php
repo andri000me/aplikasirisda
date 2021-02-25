@@ -40,6 +40,9 @@ require_once 'include/auth.php';
                 </div>
             </div>
         </div>
+        <div class="container-fluid">
+            <img src="dist/assets/img/bri.jpg" style="width: 100%;" alt="">
+        </div>
     </div>
 </main>
 

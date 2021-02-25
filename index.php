@@ -46,7 +46,32 @@
         <div class="row">
             <div class="container-fluid mt-7">
                 <div class="row">
-                    <img width="100%" src="dist/assets/img/bri.jpg">
+                    <div id="my-carousel" class="carousel slide" data-ride="carousel" style="width: 100%;">
+                        <ol class="carousel-indicators">
+                            <li class="active" data-target="#my-carousel" data-slide-to="0" aria-current="location"></li>
+                            <li data-target="#my-carousel" data-slide-to="1"></li>
+                            <li data-target="#my-carousel" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block" style="width: 100%; height: 100%;" src="dist/assets/img/bankbri1.jpeg" alt="">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block" style="width: 100%; height: 100%;" src="dist/assets/img/bankbri2.jpg" alt="">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block" style="width: 100%; height: 100%;" src="dist/assets/img/bankbri3.jpg" alt="">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#my-carousel" data-slide="prev" role="button">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#my-carousel" data-slide="next" role="button">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
