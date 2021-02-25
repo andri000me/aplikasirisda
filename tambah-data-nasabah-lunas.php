@@ -52,9 +52,14 @@ if (isset($_POST['datanasabahlunas'])) {
                         <label for="jangkawaktu">Jangka Waktu</label>
                         <input type="text" class="form-control" name="jangkawaktu" placeholder="3 Bulan" required="required">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row-cols-lg-5">
                         <label for="status">Status</label>
-                        <input type="text" class="form-control" name="status" placeholder="Lunas/Belum Lunas" required="required">
+                        <select name="status" id="" required="required" class="form-control">
+                            <option selected disabled>Pilih</option>
+                            <option value="Lunas">Lunas</option>
+                            <option value="Belum Lunas">Belum Lunas</option>
+                        </select>
+                        <!-- <input type="text" class="form-control" name="status" placeholder="Lunas/Belum Lunas" required="required"> -->
                     </div>
                     <button type="submit" name="datanasabahlunas" class="btn btn-primary" onclick="return confirm('Yakin ingin menyimpan?')">Simpan</button>
                     <button type="reset" class="btn btn-warning">Clear</button>

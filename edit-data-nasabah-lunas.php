@@ -9,15 +9,15 @@ $sql = mysqli_query($link, "SELECT * FROM nasabahlunas WHERE id='$id'");
 $row = mysqli_fetch_array($sql);
 
 if (isset($_POST['editnasabahlunas'])) {
-    if (editdatapeminjamperbulan($_POST) > 0) {
+    if (editdatanasabahlunas($_POST) > 0) {
         echo "<script>
         alert('Edit data berhasil');
-        window.location.href='data-peminjam-perbulan.php';
+        window.location.href='data-nasabah-lunas.php';
         </script>";
     } else {
         echo "<script>
         alert('Edit data gagal');
-        window.location.href='edit-data-peminjam-perbulan.php';
+        window.location.href='edit-data-nasabah-lunas.php';
         </script>";
     }
 }
@@ -59,7 +59,14 @@ if (isset($_POST['editnasabahlunas'])) {
                     </div>
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <input type="text" class="form-control" name="status" placeholder="" required="required" value="<?= $row['status']; ?>">
+                        <?php foreach($sql as $row): ?>
+                        <select name="status" id="" class="form-control" required="required">
+                            <option disabled>Pilih</option>
+                            <option value="Lunas <?php if($row['status'] == 'Lunas'){echo 'selected="selected"';}?>">Lunas</option>
+                            <option value="Belum Lunas <?php if($row['status'] == 'Belum Lunas'){echo 'selected="selected"';}?>">Belum Lunas</option>
+                        </select>
+                        <?php endforeach; ?>
+                        <!-- <input type="text" class="form-control" name="status" placeholder="" required="required" value="<= $row['status']; ?>"> -->
                     </div>
                     <button type="submit" name="editnasabahlunas" class="btn btn-primary" onclick="return confirm('Simpan perubahan?')">Edit</button>
                     <a href="data-nasabah-lunas.php" class="btn btn-warning" onclick="return confirm('Yakin batal edit?')">Kembali</a>
