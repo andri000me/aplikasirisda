@@ -26,7 +26,7 @@ $pdf->Line(1, 3.2, 28.5, 3.2);
 $pdf->SetLineWidth(0);
 $pdf->ln(1);
 $pdf->SetFont('Arial', 'B', 14);
-$pdf->Cell(0, 0.7, 'Laporan Data Peminjam Perbulan', 0, 0, 'C');
+$pdf->Cell(0, 0.7, 'Laporan Data Tanda Terima Agunan', 0, 0, 'C');
 $pdf->ln(1);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(5, 0.7, "Print pada : " . date("d/m/Y"), 0, 0, 'C');
