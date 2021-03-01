@@ -5,6 +5,7 @@
     "require": {
         "twbs/bootstrap": "4.5.3",
         "fortawesome/font-awesome": "5.15.1",
-        "setasign/fpdf": "1.8.2"
+        "setasign/fpdf": "1.8.2",
+        "mpdf/mpdf": "^8.0"
     }
 }

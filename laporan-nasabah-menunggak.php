@@ -13,7 +13,7 @@ require_once 'include/auth.php';
                 <a href="printall-nasabah-menunggak.php" target="_blank" class="btn btn-primary float-right">Print Semua</a>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-sm table-hover table-bordered">
                     <thead>
                         <tr>
                             <th>NO</th>
@@ -37,9 +37,9 @@ require_once 'include/auth.php';
                                 <td><?= $no++; ?></td>
                                 <td><?= $row['nama']; ?></td>
                                 <td><?= $row['nohp']; ?></td>
-                                <td><?= substr($row['alamat'], 0, 20); ?></td>
+                                <td><?= substr($row['alamat'], 0, 255); ?></td>
                                 <td><?= $row['norekening']; ?></td>
-                                <td>Rp. <?= number_format($row['pinjaman'] ,0,',','.'); ?></td>
+                                <td>Rp.<?= number_format($row['pinjaman'] ,0,',','.'); ?></td>
                                 <td><?= $row['tgljatuhtempo']; ?></td>
                                 <td>Rp. <?= number_format($row['jumlahmenunggak'] ,0,',','.'); ?></td>
                             </tr>

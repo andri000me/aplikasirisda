@@ -17,7 +17,7 @@ $pdf->SetX(4);
 $pdf->MultiCell(19.5, 0.5, '', 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->SetX(4);
-$pdf->MultiCell(25, 0.5, 'Gg. Gondang Mas Jl. Kuin Sel. No.60, Kuin Cerucuk, Kec. Banjarmasin Bar., Kota Banjarmasin, Kalimantan Selatan 70127', 0, 'L');
+$pdf->MultiCell(25, 0.5, 'Jl. Kuin Selatan No.60 Kecamatan Banjarmasin Barat, Kota Banjarmasin, Kalimantan Selatan, 70127', 0, 'L');
 $pdf->SetX(4);
 $pdf->MultiCell(10, 0.5, 'Website : https://bri.co.id/', 0, 'L');
 $pdf->Line(1, 3.1, 28.5, 3.1);

@@ -1,4 +1,4 @@
 $(document).ready(function () {
-    // Intialize gallery
-    var gallery = $('.gallery a').simpleLightbox();
+  // Intialize gallery
+  var gallery = $('.gallery a').simpleLightbox();
 });
