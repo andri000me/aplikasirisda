@@ -10,7 +10,8 @@ require_once 'include/auth.php';
         <h1 class="mt-4">Data Nasabah Lunas</h1>
         <div class="card mb-4">
             <div class="card-header">Tabel
-                <a href="printall-nasabah-lunas.php" target="_blank" class="btn btn-primary float-right">Print Semua</a>
+                <a href="printall-nasabah-lunas.php" target="_blank" class="btn btn-primary float-right mx-2">Print Semua</a>
+                <a href="printall-excel-nasabah-lunas.php" target="_blank" class="btn btn-primary float-right">Export Excel</a>
             </div>
             <div class="card-body">
                 <table class="table table-sm table-hover table-bordered">

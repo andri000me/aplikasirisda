@@ -1,58 +1,153 @@
 <?php
-include "vendor/setasign/fpdf/fpdf.php";
-require "include/function.php";
+include "vendor/tcpdf/tcpdf.php";
+include "head.php";
+include "foot.php";
 
 date_default_timezone_set("Asia/Makassar");
 
-$pdf = new FPDF("L", "cm", "A4");
+// Extend the TCPDF class to create custom Header and Footer
+class MYPDF extends TCPDF
+{
 
-$pdf->SetMargins(2, 1, 1);
-$pdf->AliasNbPages();
-$pdf->AddPage();
-$pdf->SetFont('Times', 'B', 13);
-$pdf->Image('dist/assets/img/logobri.png', 1, 1, 2, 2);
-$pdf->SetX(4);
-$pdf->MultiCell(19.5, 0.5, 'Bank BRI Unit Kuin Alalak', 0, 'L');
-$pdf->SetX(4);
-$pdf->MultiCell(19.5, 0.5, '', 0, 'L');
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->SetX(4);
-$pdf->MultiCell(25, 0.5, 'Jl. Kuin Selatan No.60 Kecamatan Banjarmasin Barat, Kota Banjarmasin, Kalimantan Selatan, 70127', 0, 'L');
-$pdf->SetX(4);
-$pdf->MultiCell(10, 0.5, 'Website : https://bri.co.id/', 0, 'L');
-$pdf->Line(1, 3.1, 28.5, 3.1);
-$pdf->SetLineWidth(0.1);
-$pdf->Line(1, 3.2, 28.5, 3.2);
-$pdf->SetLineWidth(0);
-$pdf->ln(1);
-$pdf->SetFont('Arial', 'B', 14);
-$pdf->Cell(0, 0.7, 'Laporan Data Struk', 0, 0, 'C');
-$pdf->ln(1);
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(5, 0.7, "Print pada : " . date("d/m/Y"), 0, 0, 'C');
-$pdf->ln(1);
-$pdf->Cell(6, 0.7, "Laporan", 0, 0, 'C');
-$pdf->ln(1);
-$pdf->Cell(1, 1, 'No', 1, 0, 'C');
-$pdf->Cell(4, 1, 'Nama Nasabah', 1, 0, 'C');
-$pdf->Cell(4, 1, 'Alamat', 1, 0, 'C');
-$pdf->Cell(4, 1, 'Nomor Rekening', 1, 0, 'C');
-$pdf->Cell(3, 1, 'Pinjaman', 1, 0, 'C');
-$pdf->Cell(4, 1, 'Jangka Waktu', 1, 0, 'C');
-$pdf->Cell(4, 1, 'Tgl Jatuh Tempo', 1, 1, 'C');
+  //Page header
+  public function Header()
+  {
+    // Logo
+    $image_file = 'dist/assets/img/' . 'logobri.png';
+    $this->Image($image_file, 10, 10, 35, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+    // Set font
+    $this->SetFont('helvetica', 'B', 14);
+    // Title
+    $this->SetX(50);
+    $this->Cell(0, 15, 'Bank BRI Unit Kuin Alalak Banjarmasin', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $this->ln(1);
+    $this->SetX(50);
+    $this->SetFont('helvetica', 'B', 10);
+    $this->Cell(0, 15, 'Jl. Kuin Selatan No.60 Kecamatan Banjarmasin Barat, Kota Banjarmasin, Kalimantan Selatan, 70127', 0, false, 'L', 0, '', 0, false, 'T', 'M');
+    $this->ln(5);
+    $this->SetX(50);
+    $this->SetFont('helvetica', 'B', 10);
+    $this->Cell(0, 15, 'Website : https://bri.co.id/', 0, false, 'L', 0, '', 0, false, 'T', 'M');
+    $this->ln(5);
+  }
 
-$no = 1;
-$query = "SELECT * FROM struk";
-$result = mysqli_query($link, $query);
-while ($row = mysqli_fetch_array($result)) {
-    $pdf->Cell(1, 2, $no, 1, 0, 'C');
-    $pdf->Cell(4, 2, $row['nama'], 1, 0, 'C');
-    $pdf->Cell(4, 2, $row['alamat'], 1, 0, 'C');
-    $pdf->Cell(4, 2, $row['norekening'], 1, 0, 'C');
-    $pdf->Cell(3, 2, $row['pinjaman'], 1, 0, 'C');
-    $pdf->Cell(4, 2, $row['jangkawaktu'], 1, 0, 'C');
-    $pdf->Cell(4, 2, $row['tgljatuhtempo'], 1, 0, 'C');
-    $pdf->ln(2);
-    $no++;
+  // Page footer
+  public function Footer()
+  {
+    // Position at 15 mm from bottom
+    $this->SetY(-15);
+    // Set font
+    $this->SetFont('helvetica', 'I', 8);
+    // Page number
+    $this->Cell(0, 10, 'Page ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+  }
 }
-$pdf->Output("laporan_peminjam_perbulan.pdf", "I");
+
+// create new PDF document
+$pdf = new MYPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
+
+// set document information
+$pdf->SetCreator(PDF_CREATOR);
+$pdf->SetAuthor('Risda Roosyantie');
+$pdf->SetTitle('Struk');
+$pdf->SetSubject('Struk');
+$pdf->SetKeywords('Struk');
+
+// set default header data
+$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+$pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
+
+// set header and footer fonts
+$pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+$pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+// set default monospaced font
+$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+// set margins
+$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+//set auto page breaks
+$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+//set image scale factor
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+// ---------------------------------------------------------
+
+// set default font subsetting mode
+$pdf->setFontSubsetting(true);
+
+// Set font
+// dejavusans is a UTF-8 Unicode font, if you only need to
+// print standard ASCII chars, you can use core fonts like
+// helvetica or times to reduce file size.
+$pdf->SetFont('dejavusans', '', 10, '', true);
+
+// Add a page
+// This method has several options, check the source code documentation for more information.
+$pdf->AddPage();
+$pdf->Cell(0, 0.7, '==========================================================================================', 0, 0, 'C');
+$pdf->ln(10);
+$pdf->SetFont('helvetica', 'B', 14);
+$pdf->Cell(0, 0.7, 'Laporan Data Struk', 0, 0, 'C');
+$pdf->ln(10);
+$pdf->SetFont('dejavusans', '', 10, '', true);
+$pdf->Cell(50, 10, "Print pada : " . date("d/m/Y"), 0, 0, 'C');
+$pdf->ln(10);
+
+// Set some content to print
+$tbl_header = '<table style="width: 100%; font-family: arial, sans-serif; border-collapse: collapse;" border="1" cellpadding="2" cellspacing="2">
+<thead>
+      <tr style="text-align: center;">
+          <th>NO</th>
+          <th colspan="2">Nama Nasabah</th>
+          <th colspan="4">Alamat</th>
+          <th colspan="2">Nomor Rekening</th>
+          <th colspan="2">Pinjaman</th>
+          <th colspan="2">Jangka Waktu</th>
+          <th colspan="2">Tgl Jatuh Tempo</th>
+      </tr>
+  </thead>
+  <tbody>';
+$tbl_footer = '</tbody></table>';
+$tbl = '';
+
+$con = mysqli_connect("localhost", "root", "", "aplikasirisda");
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+$result = mysqli_query($con, "SELECT * FROM struk");
+$no = 0;
+while ($row = mysqli_fetch_array($result)) {
+  $nama = $row['nama'];
+  $alamat = $row['alamat'];
+  $norekening = $row['norekening'];
+  $pinjaman = $row['pinjaman'];
+  $tgljatuhtempo = $row['jangkawaktu'];
+  $jumlahmenunggak = $row['tgljatuhtempo'];
+  $no++;
+
+  $tbl .= '<tr style="text-align: left;">
+              <td style="text-align: center;">' . $no . '</td>
+              <td colspan="2">' . $row['nama'] . '</td>
+              <td colspan="4">' . substr($row['alamat'], 0, 255) . '</td>
+              <td colspan="2">' . $row['norekening'] . '</td>
+              <td colspan="2">Rp.' . number_format($row['pinjaman'], 0, ',', '.') . '</td>
+              <td colspan="2">' . $row['jangkawaktu'] . '</td>
+              <td colspan="2">' . $row['tgljatuhtempo'] . '</td>
+          </tr>';
+}
+
+// Print text using writeHTMLCell()
+$pdf->writeHTML($tbl_header . $tbl . $tbl_footer, true, false, false, false, '');
+
+// ---------------------------------------------------------
+
+// Close and output PDF document
+// This method has several options, check the source code documentation for more information.
+ob_end_clean();
+$pdf->Output('struk.pdf', 'I');

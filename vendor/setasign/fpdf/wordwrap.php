@@ -1,62 +1,53 @@
 <?php
+//call main fpdf file
 require('fpdf.php');
 
-class PDF extends FPDF
+class WrapText extends FPDF 
 {
-function WordWrap(&$text, $maxwidth)
-{
-	$text = trim($text);
-	if ($text==='')
-		return 0;
-	$space = $this->GetStringWidth(' ');
-	$lines = explode("\n", $text);
-	$text = '';
-	$count = 0;
+	function vcell($c_width,$c_height,$x_axis,$text){
+	$wrap=$c_height/24;
+	$wrap0=$wrap+16;// First line of text (+8 from previous)	
+	$wrap1=$wrap+24;// Second line of text (+8 from previous)
+	$wrap2=$wrap+32;// Third line of text (+8 from previous)
+	$wrap3=$wrap+40;// Fourth line of text (+8 from previous)
+	$wrap4=$wrap+48;// Fifth line of text (+8 from previous)
+	$wrap5=$wrap+56;// Sixth line of text (+8 from previous)
+	$wrap6=$wrap+64;// Seventh line of text (+8 from previous)
+	
+	$len=strlen($text);// Splits the text into 64 character each and saves in a array 
 
-	foreach ($lines as $line)
-	{
-		$words = preg_split('/ +/', $line);
-		$width = 0;
+	if($len>64){ 
+		$wrap_text_array=str_split($text,64);//This sets the length of each array to 64 characters
 
-		foreach ($words as $word)
-		{
-			$wordwidth = $this->GetStringWidth($word);
-			if ($wordwidth > $maxwidth)
-			{
-				// Word is too long, we cut it
-				for($i=0; $i<strlen($word); $i++)
-				{
-					$wordwidth = $this->GetStringWidth(substr($word, $i, 1));
-					if($width + $wordwidth <= $maxwidth)
-					{
-						$width += $wordwidth;
-						$text .= substr($word, $i, 1);
-					}
-					else
-					{
-						$width = $wordwidth;
-						$text = rtrim($text)."\n".substr($word, $i, 1);
-						$count++;
-					}
-				}
-			}
-			elseif($width + $wordwidth <= $maxwidth)
-			{
-				$width += $wordwidth + $space;
-				$text .= $word.' ';
-			}
-			else
-			{
-				$width = $wordwidth + $space;
-				$text = rtrim($text)."\n".$word.' ';
-				$count++;
-			}
-		}
-		$text = rtrim($text)."\n";
-		$count++;
+	
+
+		
+		$this->SetX($x_axis);
+		$this->Cell($c_width,$wrap0,$wrap_text_array[0],'','','');// First line of text		
+		
+		$this->SetX($x_axis);
+		$this->Cell($c_width,$wrap1,$wrap_text_array[1],'','','');// Second line of text
+		
+		$this->SetX($x_axis);
+		$this->Cell($c_width,$wrap2,$wrap_text_array[2],'','','');// Third line of text
+
+		$this->SetX($x_axis);
+		$this->Cell($c_width,$wrap3,$wrap_text_array[3],'','','');// Fourth line of text		
+
+		$this->SetX($x_axis);
+		$this->Cell($c_width,$wrap4,$wrap_text_array[4],'','','');// Fifth line of text	
+
+		$this->SetX($x_axis);
+		$this->Cell($c_width,$wrap5,$wrap_text_array[5],'','','');// Sixth line of text	
+
+		$this->SetX($x_axis);
+		$this->Cell($c_width,$wrap6,$wrap_text_array[6],'','','');// Seventh line of text	
+		
+		$this->SetX($x_axis);
+		$this->Cell($c_width,$c_height,'','LTR',0,'L',0);
 	}
-	$text = rtrim($text);
-	return $count;
+	else{
+    $this->SetX($x_axis);
+    $this->Cell($c_width,$c_height,$text,'LTRB',0,'L',0);}
+    }
 }
-}
-?>
