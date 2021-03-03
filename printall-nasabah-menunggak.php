@@ -141,7 +141,7 @@ while ($row = mysqli_fetch_array($result)) {
               <td colspan="2">' . $row['norekening'] . '</td>
               <td colspan="2">Rp.' . number_format($row['pinjaman'], 0, ',', '.') . '</td>
               <td colspan="2">' . $row['tgljatuhtempo'] . '</td>
-              <td colspan="2">' . $row['jumlahmenunggak'] . '</td>
+              <td colspan="2">Rp.' . number_format($row['jumlahmenunggak'], 0, ',', '.') . '</td>
           </tr>';
 }
 
