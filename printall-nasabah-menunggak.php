@@ -121,7 +121,7 @@ $con = mysqli_connect("localhost", "root", "", "aplikasirisda");
 if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
-$result = mysqli_query($con, "SELECT * FROM struk");
+$result = mysqli_query($con, "SELECT * FROM nasabahmenunggak");
 $no = 0;
 while ($row = mysqli_fetch_array($result)) {
   $nama = $row['nama'];
